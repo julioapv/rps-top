@@ -12,7 +12,6 @@ function getComputerChoice() {
         computerChoice = "scissors"
     }
 
-    // console.log("computer " + computerChoice);
     return computerChoice
 }
 
@@ -39,9 +38,6 @@ function playRound(humanChoice, computerChoice) {
         console.error(errorMessage)
     }
 }
-
-// const humanSelection = getHumanChoice()
-// const computerSelection = getComputerChoice()
 
 function playGame() {
     for (let i = 1; i <= 5; i++) {
