@@ -1,6 +1,14 @@
-console.log("Hello");
-let computerScore = 0
-let humanScore = 0
+const optionsContainer = document.querySelector(".options_container")
+
+const rockBtn = document.querySelector(".option_button_rock")
+const paperBtn = document.querySelector(".option_button_paper")
+const scissorsBtn = document.querySelector(".option_button_scissors")
+const optionBtns = document.querySelectorAll(".option_button")
+
+let computerScore = 0;
+let humanScore = 0;
+let currentRound = 0;
+const maxRounds = 5;
 
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3) + 1
@@ -16,14 +24,27 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let humanChoice = window.prompt("Write your choice, 'rock', 'paper' or 'scissors'").toLowerCase()
-    return humanChoice
+    for (let i = 0; i < optionBtns.length; i++) {
+        optionBtns[i].addEventListener("click", function () {
+        let humanChoice = optionBtns[i].innerText.toLowerCase()
+        return humanChoice
+    });
+    }
 }
 
 function playRound(humanChoice, computerChoice) {    
-    const humanWin = (humanChoice === "rock" && computerChoice === "scissors") || (humanChoice === "paper" && computerChoice === "rock") || (humanChoice === "scissors" && computerChoice === "paper")
-    const computerWin = (computerChoice === "rock" && humanChoice === "scissors") || (computerChoice === "paper" && humanChoice === "rock") || (computerChoice === "scissors" && humanChoice === "paper")
-    const humanComputerTie = (humanChoice === "rock" && computerChoice === "rock") || (humanChoice === "paper" && computerChoice === "paper") || (humanChoice === "scissors" && computerChoice === "scissors")
+    const humanWin = 
+        (humanChoice === "rock" && computerChoice === "scissors") || 
+        (humanChoice === "paper" && computerChoice === "rock") || 
+        (humanChoice === "scissors" && computerChoice === "paper")
+    
+    const computerWin = 
+        (computerChoice === "rock" && humanChoice === "scissors") || 
+        (computerChoice === "paper" && humanChoice === "rock") || 
+        (computerChoice === "scissors" && humanChoice === "paper")
+    
+    const humanComputerTie = 
+            (humanChoice === "rock" && computerChoice === "rock") || (humanChoice === "paper" && computerChoice === "paper") || (humanChoice === "scissors" && computerChoice === "scissors")
     const errorMessage = "Sorry we couldn't calculate your game due to technical issues, please try again"
     
     if (humanWin) {
@@ -39,18 +60,29 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    for (let i = 1; i <= 5; i++) {
-        console.log("Round: " + i);
-        const humanSelection = getHumanChoice()
-        const computerSelection = getComputerChoice()
-        playRound(humanSelection, computerSelection)
+function playGame(humanChoice) {
+    if (currentRound >= maxRounds) {
+        console.log("The game is over!");
+        console.log("Total score");
+        console.log("You: " + humanScore + " Computer: " + computerScore)
+        return;
     }
-    console.log("Total score");
-    console.log("You: " + humanScore + " Computer: " + computerScore)
+    const computerChoice = getComputerChoice()
+    playRound(humanChoice, computerChoice);
+    currentRound++;
+
+    if (currentRound === maxRounds) {
+        console.log("Game is over!");
+        console.log("You: " + humanScore + " Computer: " + computerScore)
+    }
 }
 
-playGame()
+optionBtns.forEach((button) => {
+    button.addEventListener("click", () => {
+        const humanChoice = button.innerText.toLowerCase();
+        playGame(humanChoice)
+    });
+})
 
 
 
