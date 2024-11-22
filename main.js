@@ -1,4 +1,6 @@
 const optionsContainer = document.querySelector(".options_container")
+const resultsContainer = document.querySelector(".results-container")
+const resultsText = document.createElement("p");
 
 const rockBtn = document.querySelector(".option_button_rock")
 const paperBtn = document.querySelector(".option_button_paper")
@@ -19,7 +21,6 @@ function getComputerChoice() {
     } else if (computerChoice === 3) {
         computerChoice = "scissors"
     }
-
     return computerChoice
 }
 
@@ -45,6 +46,7 @@ function playRound(humanChoice, computerChoice) {
     
     const humanComputerTie = 
             (humanChoice === "rock" && computerChoice === "rock") || (humanChoice === "paper" && computerChoice === "paper") || (humanChoice === "scissors" && computerChoice === "scissors")
+    
     const errorMessage = "Sorry we couldn't calculate your game due to technical issues, please try again"
     
     if (humanWin) {
@@ -60,21 +62,34 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+function finalScore(humanScore, computerScore) {
+    if (humanScore > computerScore) {
+        resultsText.innerText = "You win!"
+    } else if (computerScore > humanScore) {
+        resultsText.innerText = "You lose!"
+    } else {
+        resultsText.innerText = "It's a tie!"
+    }
+}
+
 function playGame(humanChoice) {
-    if (currentRound >= maxRounds) {
-        console.log("The game is over!");
-        console.log("Total score");
-        console.log("You: " + humanScore + " Computer: " + computerScore)
-        return;
+    
+    if (currentRound <= maxRounds) {
+        console.log("round" + currentRound);
     }
     const computerChoice = getComputerChoice()
     playRound(humanChoice, computerChoice);
     currentRound++;
-
+    
     if (currentRound === maxRounds) {
-        console.log("Game is over!");
+        console.log("The game is over!");
+        console.log("Total score");
         console.log("You: " + humanScore + " Computer: " + computerScore)
+        finalScore(humanScore, computerScore)
+        resultsContainer.append(resultsText, humanScore, computerScore)
+        return;
     }
+
 }
 
 optionBtns.forEach((button) => {
