@@ -9,18 +9,78 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #021526;
+    font-family: "Roboto", serif;
 }
 
 .main-container {
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    border-radius: 10px;
-    background: #FF6500;
     color: #000000;
     line-height: 50px;
     font-size: 1.5rem;
+    background-color: #6EACDA;
+    border-radius: 15px;
+}
 
+.info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.instructions-container {
+    line-height: 30px;
+}
+
+.options-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 600px;
+    padding: 20px;
+    flex-grow:0;
+    flex-direction: row;
+    border-radius: 0 0 10px 10px;
+}
+
+.option-button, .reset-button {
+    font-size: 25px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.round-information {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-info {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.results-container {
+    height: 200px;
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 10px 10px;
 }

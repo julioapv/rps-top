@@ -1,16 +1,43 @@
 const optionsContainer = document.querySelector(".options_container")
 const resultsContainer = document.querySelector(".results-container")
 const resultsText = document.createElement("p");
+const roundText = document.querySelector(".round-counter")
+const roundWinner = document.querySelector(".round-winner")
+const humanScoreDisplay = document.querySelector(".human-score")
+const computerScoreDisplay = document.querySelector(".computer-score")
 
-const rockBtn = document.querySelector(".option_button_rock")
-const paperBtn = document.querySelector(".option_button_paper")
-const scissorsBtn = document.querySelector(".option_button_scissors")
-const optionBtns = document.querySelectorAll(".option_button")
+const rockBtn = document.querySelector(".option-button-rock")
+const paperBtn = document.querySelector(".option-button-paper")
+const scissorsBtn = document.querySelector(".option-button-scissors")
+const optionBtns = document.querySelectorAll(".option-button")
+const resetGameBtn = document.querySelector(".reset-button")
 
 let computerScore = 0;
 let humanScore = 0;
-let currentRound = 0;
-const maxRounds = 5;
+let currentRound = 1;
+const maxRounds = 6;
+
+
+function disableAllButtons() {
+    optionBtns.forEach(button => button.disabled = true)
+}
+
+function enableAllButtons() {
+    optionBtns.forEach(button => button.disabled = false)
+}
+
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    currentRound = 0;
+
+    resultsText.innerText = "-"
+    humanScoreDisplay.innerText = `Your score: ${humanScore}`
+    computerScoreDisplay.innerText = `Computer score: ${computerScore}`
+    roundText.innerText = `Current round: ${currentRound}`
+    resultsText.innerText = ""
+    enableAllButtons()
+}
 
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3) + 1
@@ -52,11 +79,16 @@ function playRound(humanChoice, computerChoice) {
     if (humanWin) {
         console.log("you win");
         humanScore ++
+        humanScoreDisplay.innerText = `Your score: ${humanScore}`
+        roundWinner.innerText = "You win"
     } else if (computerWin) {
         console.log("you lose");
         computerScore ++
+        computerScoreDisplay.innerText = `Computer score: ${computerScore}`
+        roundWinner.innerText = "You lose"
     } else if (humanComputerTie) {
         console.log("tie");
+        roundWinner.innerText = "It's a tie"
     } else {
         console.error(errorMessage)
     }
@@ -64,11 +96,11 @@ function playRound(humanChoice, computerChoice) {
 
 function finalScore(humanScore, computerScore) {
     if (humanScore > computerScore) {
-        resultsText.innerText = "You win!"
+        resultsText.innerText = "You win! Well done!"
     } else if (computerScore > humanScore) {
-        resultsText.innerText = "You lose!"
+        resultsText.innerText = "You lose! Better luck next time"
     } else {
-        resultsText.innerText = "It's a tie!"
+        resultsText.innerText = "It's a tie! Let's play another game"
     }
 }
 
@@ -76,20 +108,18 @@ function playGame(humanChoice) {
     
     if (currentRound <= maxRounds) {
         console.log("round" + currentRound);
+        roundText.innerText = `Current round: ${currentRound}`
     }
     const computerChoice = getComputerChoice()
     playRound(humanChoice, computerChoice);
     currentRound++;
     
     if (currentRound === maxRounds) {
-        console.log("The game is over!");
-        console.log("Total score");
-        console.log("You: " + humanScore + " Computer: " + computerScore)
         finalScore(humanScore, computerScore)
-        resultsContainer.append(resultsText, humanScore, computerScore)
+        resultsContainer.append(resultsText)                
+        disableAllButtons()
         return;
     }
-
 }
 
 optionBtns.forEach((button) => {
@@ -99,5 +129,5 @@ optionBtns.forEach((button) => {
     });
 })
 
-
+resetGameBtn.addEventListener("click", () => resetGame())
 
