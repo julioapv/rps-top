@@ -4,6 +4,8 @@
 
 A simple and interactive Rock Paper Scissors game built with JavaScript, designed to showcase basic DOM manipulation and Git workflow techniques.
 
+Live demo: https://julioapv.github.io/rps-top/
+
 ## 🚀 Project Highlights
 
 This web-based game demonstrates fundamental web development and version control skills through an engaging, user-friendly interface.
