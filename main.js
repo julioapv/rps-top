@@ -77,19 +77,17 @@ function playRound(humanChoice, computerChoice) {
     const errorMessage = "Sorry we couldn't calculate your game due to technical issues, please try again"
     
     if (humanWin) {
-        console.log("you win");
         humanScore ++
         humanScoreDisplay.innerText = `Your score: ${humanScore}`
         roundWinner.innerText = "You win"
     } else if (computerWin) {
-        console.log("you lose");
         computerScore ++
         computerScoreDisplay.innerText = `Computer score: ${computerScore}`
         roundWinner.innerText = "You lose"
     } else if (humanComputerTie) {
-        console.log("tie");
         roundWinner.innerText = "It's a tie"
     } else {
+        alert(errorMessage)
         console.error(errorMessage)
     }
 }
@@ -107,7 +105,6 @@ function finalScore(humanScore, computerScore) {
 function playGame(humanChoice) {
     
     if (currentRound <= maxRounds) {
-        console.log("round" + currentRound);
         roundText.innerText = `Current round: ${currentRound}`
     }
     const computerChoice = getComputerChoice()
